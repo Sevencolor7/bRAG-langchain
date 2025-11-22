@@ -1,11 +1,6 @@
 # Retrieval-Augmented Generation (RAG) Project
 
-### Important Announcement !! ([BragAI](https://bragai.dev))
-
-**BragAI Public Beta Coming Soon** - **[JOIN THE WAITLIST](https://bragai.dev/)** (currently in private beta - contact me for early access)
-
-**Turn ideas into full-stack apps in minutes with BragAI (https://bragai.dev)**
-
+#### 🔜 Check out [bragai.dev](https://bragai.dev) (launching soon)
 
 ---------------------
 
