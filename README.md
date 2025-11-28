@@ -173,6 +173,57 @@ Begin with `[1]_rag_setup_overview.ipynb` to get familiar with the setup process
 - `[4]_rag_indexing_and_advanced_retrieval.ipynb`
 - `[5]_rag_retrieval_and_reranking.ipynb`
 
+### Run the SiliconFlow DeepSeek RAG Script
+
+1. Ensure you have the required keys exported (they can also be loaded from `.env`):
+
+   ```bash
+   export SILICONFLOW_API_KEY="your-siliconflow-key"
+   export PINECONE_API_KEY="your-pinecone-key"            # only if using Pinecone
+   export PINECONE_API_HOST="your-pinecone-host"          # only if using Pinecone
+   ```
+
+2. Index a PDF and ask a question directly from the CLI (uses BGE3 embeddings via SiliconFlow and the basic RAG prompt from `full_basic_rag.ipynb`):
+
+   ```bash
+   python examples/siliconflow_deepseek_rag.py \
+     --file test/langchain_turing.pdf \
+     --index-name siliconflow-deepseek-demo \
+     --vector-store chroma \
+     --question "What did the paper say about Alan Turing?" \
+     --top-k 4
+   ```
+
+3. To use Pinecone instead of Chroma, pass your index host and name:
+
+   ```bash
+   python examples/siliconflow_deepseek_rag.py \
+     --file test/langchain_turing.pdf \
+     --index-name siliconflow-deepseek-demo \
+     --vector-store pinecone \
+     --pinecone-api-host "$PINECONE_API_HOST" \
+     --top-k 4
+   ```
+
+4. To expose a simple API instead of the CLI, omit `--question` to start FastAPI/uvicorn:
+
+   ```bash
+   python examples/siliconflow_deepseek_rag.py \
+     --file test/langchain_turing.pdf \
+     --index-name siliconflow-deepseek-demo \
+     --vector-store chroma
+   ```
+
+   Then issue POST requests to `http://localhost:8000/query` with JSON payloads such as:
+
+   ```bash
+   curl -X POST http://localhost:8000/query \
+     -H "Content-Type: application/json" \
+     -d '{"question": "Summarize the main ideas from the PDF."}'
+   ```
+
+The script reuses the PDF loader and text splitter settings from `full_basic_rag.ipynb`, applies BGE3 embeddings, and routes the prompt/context into DeepSeek Chat served by SiliconFlow.
+
 #### 6. Set Up Environment Variables
 1. Duplicate the `.env.example` file in the root directory and rename it to `.env`.
 2. Add the following keys (replace with your actual values):
@@ -192,9 +243,16 @@ Begin with `[1]_rag_setup_overview.ipynb` to get familiar with the setup process
    PINECONE_API_HOST="your-host-url"
    PINECONE_API_KEY="your-api-key"
 
+   # SiliconFlow - Get key at https://cloud.siliconflow.cn/account/ak
+   SILICONFLOW_API_KEY="your-siliconflow-key"
+   SILICONFLOW_BASE_URL="https://api.siliconflow.cn/v1"  # override if self-hosting
+
+   # DeepSeek model (default is deepseek-ai/DeepSeek-V3)
+   DEEPSEEK_MODEL="deepseek-ai/DeepSeek-V3"
+
    # Cohere - Get key at https://dashboard.cohere.com/api-keys
    COHERE_API_KEY=your-api-key
-   ```
+    ```
 
 ---
 
