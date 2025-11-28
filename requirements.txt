@@ -18,5 +18,7 @@ youtube-transcript-api<1.0.0
 pytube
 cohere
 pypdf
+fastapi
+uvicorn
 yt_dlp
 httpx
