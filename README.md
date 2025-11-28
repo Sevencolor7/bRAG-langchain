@@ -5,7 +5,7 @@
 ---------------------
 
 This repository contains a comprehensive exploration of Retrieval-Augmented Generation (RAG) for various applications.
-Each notebook provides a detailed, hands-on guide to setting up and experimenting with RAG from an introductory level to advanced implementations, including multi-querying and custom RAG builds.
+Each notebook provides a detailed, hands-on guide to setting up and experimenting with RAG from an introductory level to advanced implementations, including multi-querying and custom RAG builds. The default examples rely on the custom SiliconFlow BGE embeddings wrapper and DeepSeek chat model found under `src/integrations/`, while remaining compatible with LangChain v1 Runnable composition APIs.
 
 ![rag_detail_v2](assets/img/rag-architecture.png)
 
@@ -229,8 +229,15 @@ The script reuses the PDF loader and text splitter settings from `full_basic_rag
 2. Add the following keys (replace with your actual values):
 
    ```env
-   # LLM Model - Get key at https://platform.openai.com/api-keys
-   OPENAI_API_KEY="your-api-key"
+   # SiliconFlow Embeddings
+   SILICONFLOW_API_KEY="your-api-key"
+   # Optional: override the default SiliconFlow API host
+   # SILICONFLOW_BASE_URL="https://api.siliconflow.cn/v1/embeddings"
+
+   # DeepSeek Chat
+   DEEPSEEK_API_KEY="your-api-key"
+   # Optional: override the default DeepSeek API host
+   # DEEPSEEK_BASE_URL="https://api.deepseek.com/v1"
 
    # LangSmith - Get key at https://smith.langchain.com
    LANGCHAIN_TRACING_V2=true

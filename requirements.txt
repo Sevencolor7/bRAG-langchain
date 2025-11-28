@@ -21,3 +21,4 @@ pypdf
 fastapi
 uvicorn
 yt_dlp
+httpx
