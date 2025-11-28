@@ -19,3 +19,4 @@ pytube
 cohere
 pypdf
 yt_dlp
+httpx
